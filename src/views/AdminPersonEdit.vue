@@ -29,7 +29,7 @@ const person = ref(null)
 const loading = ref(true)
 
 async function load() {
-  await Promise.all([peopleStore.loadAll(), familiesStore.loadAll()])
+  await Promise.all([peopleStore.ensureLoaded(), familiesStore.ensureLoaded()])
   person.value = await peopleStore.getById(route.params.id)
   loading.value = false
 }

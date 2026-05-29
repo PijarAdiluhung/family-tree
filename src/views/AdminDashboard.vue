@@ -1,10 +1,10 @@
 <template>
   <div class="px-4 py-6 max-w-2xl mx-auto">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-lg font-bold">Admin — Daftar Anggota</h2>
+      <h2 class="text-lg font-bold">Anggota Keluarga</h2>
       <div class="flex gap-2">
         <button @click="auth.signOut()" class="btn-ghost text-xs">Logout</button>
-        <router-link to="/admin/people/new" class="btn-primary text-sm">+ Tambah</router-link>
+        <router-link to="/admin/people/new" class="btn-primary text-xs">+ Tambah</router-link>
       </div>
     </div>
 
@@ -78,7 +78,7 @@ async function setRoot(personId) {
 }
 
 onMounted(async () => {
-  await peopleStore.loadAll()
+  await peopleStore.ensureLoaded()
   loading.value = false
 })
 </script>

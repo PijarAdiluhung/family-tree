@@ -37,6 +37,10 @@ export const usePeopleStore = defineStore('people', () => {
       .filter(s => s.spouseId)
   }
 
+  async function ensureLoaded() {
+    if (!loaded.value) await loadAll()
+  }
+
   async function save(id, data) {
     const newId = await savePerson(id, data)
     await loadAll()
@@ -52,5 +56,5 @@ export const usePeopleStore = defineStore('people', () => {
     return all.value.find(p => p.isRoot) || all.value[0]
   }
 
-  return { all, loaded, loadAll, getById, getChildren, getSpouses, save, remove, getRoot }
+  return { all, loaded, loadAll, ensureLoaded, getById, getChildren, getSpouses, save, remove, getRoot }
 })

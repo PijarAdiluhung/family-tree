@@ -116,7 +116,7 @@ function navigateTo(index) {
 
 async function init() {
   loading.value = true
-  await Promise.all([peopleStore.loadAll(), familiesStore.loadAll()])
+  await Promise.all([peopleStore.ensureLoaded(), familiesStore.ensureLoaded()])
   if (peopleStore.all.length === 0) {
     loading.value = false
     return

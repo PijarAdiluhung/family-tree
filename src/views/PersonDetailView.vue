@@ -57,11 +57,6 @@
           </template>
         </div>
       </div>
-
-      <div class="flex justify-center gap-4 mt-6">
-        <router-link :to="{ name: 'picker', query: { focus: person.id } }" class="btn-secondary text-sm">Cari dari sini</router-link>
-        <router-link :to="{ name: 'map', query: { focus: person.id } }" class="btn-secondary text-sm">Lihat di pohon</router-link>
-      </div>
     </template>
   </div>
 </template>
@@ -84,7 +79,7 @@ const parentMap = ref({})
 const loading = ref(true)
 
 onMounted(async () => {
-  await Promise.all([peopleStore.loadAll(), familiesStore.loadAll()])
+  await Promise.all([peopleStore.ensureLoaded(), familiesStore.ensureLoaded()])
   const p = await peopleStore.getById(route.params.id)
   if (!p) { loading.value = false; return }
   person.value = p

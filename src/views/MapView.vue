@@ -21,7 +21,7 @@ const loading = ref(true)
 const focusId = computed(() => route.query.focus || null)
 
 onMounted(async () => {
-  await Promise.all([peopleStore.loadAll(), familiesStore.loadAll()])
+  await Promise.all([peopleStore.ensureLoaded(), familiesStore.ensureLoaded()])
   loading.value = false
 })
 </script>

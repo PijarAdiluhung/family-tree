@@ -1,27 +1,38 @@
 <template>
   <div class="h-full w-full">
     <VueFlow
+      ref="vueFlowRef"
       :nodes="flowNodes"
       :edges="flowEdges"
       :node-types="nodeTypes"
-      :default-viewport="{ x: 0, y: 0, zoom: 0.5 }"
-      fit-view-on-init
+      :nodes-draggable="false"
+      :nodes-focusable="false"
+      :pan-on-drag="true"
       :min-zoom="0.1"
       :max-zoom="2"
       @node-click="onNodeClick"
+      @pane-ready="onPaneReady"
     >
       <Background :gap="20" :size="1" pattern-color="#e5e7eb" />
       <Controls show-zoom show-fit-view class="!bottom-4 !right-4" />
+      <MiniMap
+        class="!top-3 !right-3 !shadow-lg"
+        node-color="#059669"
+        mask-color="rgba(5, 150, 105, 0.08)"
+        :node-border-radius="4"
+        :style="{ width: 180, height: 120 }"
+      />
     </VueFlow>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { VueFlow } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
+import { MiniMap } from '@vue-flow/minimap'
 import PersonNode from './PersonNode.vue'
 
 const props = defineProps({
@@ -32,7 +43,22 @@ const props = defineProps({
 
 const router = useRouter()
 
+const vueFlowRef = ref(null)
 const nodeTypes = { person: PersonNode }
+
+function onPaneReady() {
+  nextTick(() => {
+    const flow = vueFlowRef.value
+    if (!flow) return
+    const bounds = flow.getNodesBounds()
+    const vh = window.innerHeight
+    const zoom = Math.min((vh * 0.75) / bounds.height, 1.5)
+    const vw = window.innerWidth
+    const x = (vw - bounds.width * zoom) / 2
+    const y = (vh - bounds.height * zoom) / 2
+    flow.setViewport({ x, y, zoom }, { duration: 0 })
+  })
+}
 
 const peopleMap = computed(() => {
   const map = {}
