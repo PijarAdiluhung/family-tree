@@ -16,9 +16,9 @@
       <Background :gap="20" :size="1" pattern-color="#e5e7eb" />
       <Controls show-zoom show-fit-view class="!bottom-4 !right-4" />
       <MiniMap
-        class="!top-3 !right-3 !shadow-lg"
+        class="!bottom-3 !right-3 !shadow-lg max-h-[120px]"
         node-color="#059669"
-        mask-color="rgba(5, 150, 105, 0.08)"
+        mask-color="rgba(5, 150, 105, 0.1)"
         :node-border-radius="4"
         :style="{ width: 180, height: 120 }"
       />
