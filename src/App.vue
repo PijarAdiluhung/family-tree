@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="auth.loading"
-    class="h-svh w-screen flex items-center justify-center bg-gray-50"
+    class="h-svh w-screen overflow-hidden flex items-center justify-center bg-gray-50"
   >
     <div
       class="w-10 h-10 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"
-    />
+    ></div>
   </div>
   <div
     v-else
@@ -96,9 +96,11 @@
     <main
       class="flex-1 overflow-y-auto bg-gray-50 pb-[env(safe-area-inset-bottom)]"
     >
-      <Transition name="slide-fade" mode="out-in">
-        <router-view />
-      </Transition>
+      <router-view v-slot="{ Component }">
+        <Transition name="slide-fade" mode="out-in">
+          <component :is="Component" />
+        </Transition>
+      </router-view>
     </main>
   </div>
 </template>
@@ -128,6 +130,7 @@ const titles = {
   person: "Detail",
   info: "Info",
   login: "Login",
+  revisi: "Revisi Data",
 };
 
 const title = computed(() => {

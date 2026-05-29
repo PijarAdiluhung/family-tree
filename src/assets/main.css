@@ -3,10 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    /* Hard-lock the viewport height and prevent it from expanding */
+    height: 100svh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
   html {
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior: none;
   }
+
   body {
     @apply antialiased;
   }

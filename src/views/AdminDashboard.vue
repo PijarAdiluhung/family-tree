@@ -3,6 +3,7 @@
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold">Anggota Keluarga</h2>
       <div class="flex gap-2">
+        <router-link to="/admin/revisi" class="btn-ghost text-xs">Revisi Masuk</router-link>
         <button @click="handleLogout" class="btn-ghost text-xs">Logout</button>
         <router-link to="/admin/people/new" class="btn-primary text-xs">+ Tambah</router-link>
       </div>

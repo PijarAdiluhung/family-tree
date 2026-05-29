@@ -27,6 +27,11 @@ const routes = [
     component: () => import('@/views/InfoView.vue'),
   },
   {
+    path: '/revisi',
+    name: 'revisi',
+    component: () => import('@/views/RevisiDataView.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/views/LoginView.vue'),
@@ -44,6 +49,11 @@ const routes = [
   {
     path: '/admin/people/:id/edit',
     component: () => import('@/views/AdminPersonEdit.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/admin/revisi',
+    component: () => import('@/views/AdminRevisiList.vue'),
     meta: { requiresAuth: true },
   },
 ]

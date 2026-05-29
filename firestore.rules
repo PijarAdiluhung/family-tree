@@ -24,6 +24,14 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // Revisions — anyone can submit, admin-only update/delete
+    match /revisions/{revisionId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
     // Settings — public read, admin-only write
     match /settings/{docId} {
       allow read: if true;

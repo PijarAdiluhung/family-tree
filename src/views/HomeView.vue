@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center justify-center min-h-[80vh] px-6 gap-8"
+    class="flex flex-col items-center justify-center min-h-[80vh] my-6 px-6 gap-8"
   >
     <div class="text-center">
       <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
@@ -88,6 +88,46 @@
           <div class="text-sm text-gray-500">
             Lihat semua anggota dalam satu tampilan
           </div>
+        </div>
+        <svg
+          class="w-5 h-5 text-gray-400 ml-auto shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </router-link>
+
+      <router-link
+        to="/revisi"
+        class="card flex items-center gap-4 p-5 hover:shadow-md transition-shadow"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center shrink-0"
+        >
+          <svg
+            class="w-6 h-6 text-purple-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+            />
+          </svg>
+        </div>
+        <div class="text-left">
+          <div class="font-semibold text-gray-800">Revisi Data</div>
+          <div class="text-sm text-gray-500">Koreksi data anggota keluarga</div>
         </div>
         <svg
           class="w-5 h-5 text-gray-400 ml-auto shrink-0"
