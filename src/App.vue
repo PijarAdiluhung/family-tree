@@ -1,5 +1,16 @@
 <template>
-  <div class="h-svh w-screen flex flex-col overflow-hidden select-none">
+  <div
+    v-if="auth.loading"
+    class="h-svh w-screen flex items-center justify-center bg-gray-50"
+  >
+    <div
+      class="w-10 h-10 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"
+    />
+  </div>
+  <div
+    v-else
+    class="h-svh w-screen flex flex-col overflow-hidden select-none"
+  >
     <header
       class="bg-emerald-700 text-white px-4 pt-[env(safe-area-inset-top)] h-14 flex items-center justify-between z-50 shadow shrink-0"
     >
@@ -85,7 +96,9 @@
     <main
       class="flex-1 overflow-y-auto bg-gray-50 pb-[env(safe-area-inset-bottom)]"
     >
-      <router-view />
+      <Transition name="slide-fade" mode="out-in">
+        <router-view />
+      </Transition>
     </main>
   </div>
 </template>
@@ -132,3 +145,20 @@ function goBack() {
   }
 }
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.25s ease-out;
+}
+.slide-fade-leave-active {
+  transition: all 0.15s ease-in;
+}
+.slide-fade-enter-from {
+  transform: translateY(12px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateY(-6px);
+  opacity: 0;
+}
+</style>
