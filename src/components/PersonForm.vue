@@ -45,11 +45,6 @@
       </p>
     </div>
 
-    <label class="flex items-center gap-2 cursor-pointer">
-      <input type="checkbox" v-model="form.isRoot" class="w-4 h-4 rounded border-gray-300" />
-      <span class="text-sm font-medium">Tetapkan sebagai akar pohon (root)</span>
-    </label>
-
     <div class="flex gap-3 pt-2">
       <button type="button" @click="$emit('cancel')" class="btn-secondary flex-1">Batal</button>
       <button type="submit" class="btn-primary flex-1">Simpan</button>
@@ -73,7 +68,6 @@ const form = ref({
   deathYear: null,
   birthPlace: '',
   photoUrl: '',
-  isRoot: false,
 })
 
 watch(() => props.initial, (val) => {
@@ -85,7 +79,6 @@ watch(() => props.initial, (val) => {
       deathYear: val.deathYear || null,
       birthPlace: val.birthPlace || '',
       photoUrl: val.photoUrl || '',
-      isRoot: val.isRoot || false,
     }
   }
 }, { immediate: true })

@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold">Anggota Keluarga</h2>
       <div class="flex gap-2">
-        <button @click="auth.signOut()" class="btn-ghost text-xs">Logout</button>
+        <button @click="handleLogout" class="btn-ghost text-xs">Logout</button>
         <router-link to="/admin/people/new" class="btn-primary text-xs">+ Tambah</router-link>
       </div>
     </div>
@@ -33,7 +33,6 @@
           </div>
         </div>
         <div class="flex gap-1 shrink-0">
-          <button @click="setRoot(p.id)" class="btn-ghost text-xs px-2 py-1" title="Set as root">👑</button>
           <router-link :to="`/admin/people/${p.id}/edit`" class="btn-ghost text-xs px-2 py-1">Edit</router-link>
           <button @click="handleDelete(p)" class="btn-ghost text-xs px-2 py-1 text-red-500">Hapus</button>
         </div>
@@ -44,15 +43,22 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePeopleStore } from '@/stores/people'
 import { useAuthStore } from '@/stores/auth'
 import { doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '@/services/firebase'
 
+const router = useRouter()
 const peopleStore = usePeopleStore()
 const auth = useAuthStore()
 const search = ref('')
 const loading = ref(true)
+
+async function handleLogout() {
+  await auth.signOut()
+  router.push('/')
+}
 
 const filtered = computed(() => {
   if (!search.value) return peopleStore.all
