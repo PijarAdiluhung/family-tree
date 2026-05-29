@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[calc(100vh-56px)] relative">
+  <div class="h-full w-full relative overflow-hidden">
     <div v-if="loading" class="absolute inset-0 flex items-center justify-center text-gray-400 z-10 bg-white/80">
       Memuat pohon keluarga...
     </div>

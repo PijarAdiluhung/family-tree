@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-[calc(100vh-56px)]">
+  <div class="flex flex-col h-full w-full">
     <div v-if="loading" class="flex-1 flex items-center justify-center text-gray-400">Loading...</div>
     <template v-else-if="path.length">
       <div class="flex-1 overflow-y-auto">
