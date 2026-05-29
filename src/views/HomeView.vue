@@ -1,0 +1,49 @@
+<template>
+  <div class="flex flex-col items-center justify-center min-h-[80vh] px-6 gap-8">
+    <div class="text-center">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+        <svg class="w-10 h-10 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-800">Keluarga Besar</h1>
+      <p class="text-gray-500 mt-1">Jelajahi silsilah keluarga</p>
+    </div>
+
+    <div class="w-full max-w-sm flex flex-col gap-4">
+      <router-link to="/picker" class="card flex items-center gap-4 p-5 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+          <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <div class="font-semibold text-gray-800">Cari Anggota</div>
+          <div class="text-sm text-gray-500">Telusuri anak, cucu, dan seterusnya</div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </router-link>
+
+      <router-link to="/map" class="card flex items-center gap-4 p-5 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+          <svg class="w-6 h-6 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <div class="font-semibold text-gray-800">Pohon Keluarga</div>
+          <div class="text-sm text-gray-500">Lihat semua anggota dalam satu tampilan</div>
+        </div>
+        <svg class="w-5 h-5 text-gray-400 ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </router-link>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-4">
+      <router-link to="/login" class="underline hover:text-gray-600">Admin login</router-link>
+    </p>
+  </div>
+</template>
