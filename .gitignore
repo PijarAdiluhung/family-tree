@@ -30,6 +30,7 @@ pnpm-debug.log*
 # Firebase / hosting
 .firebase/
 .firebaserc
+.agents
 
 # Test coverage
 coverage/
