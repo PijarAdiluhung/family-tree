@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
@@ -78,9 +78,16 @@ const parentFamilies = ref([])
 const parentMap = ref({})
 const loading = ref(true)
 
-onMounted(async () => {
+async function loadPerson(id) {
+  loading.value = true
+  person.value = null
+  spouses.value = []
+  children.value = []
+  parentFamilies.value = []
+  parentMap.value = {}
+
   await Promise.all([peopleStore.ensureLoaded(), familiesStore.ensureLoaded()])
-  const p = await peopleStore.getById(route.params.id)
+  const p = await peopleStore.getById(id)
   if (!p) { loading.value = false; return }
   person.value = p
 
@@ -112,5 +119,7 @@ onMounted(async () => {
   }
 
   loading.value = false
-})
+}
+
+watch(() => route.params.id, loadPerson, { immediate: true })
 </script>

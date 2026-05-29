@@ -5,10 +5,10 @@
       <div class="flex-1 overflow-y-auto">
         <div v-for="(row, i) in rows" :key="i" class="border-b border-gray-100">
           <div class="px-4 pt-3 pb-1 text-xs text-gray-400">
-            <template v-if="i === 0">Angkatan Pertama</template>
+            <template v-if="i === 0">Generasi Pertama</template>
             <template v-else>Anak dari {{ row.parent.name }}</template>
           </div>
-          <div class="px-4 pb-3 overflow-x-auto scrollbar-hide">
+          <div class="px-4 pt-1 pb-3 overflow-x-auto scrollbar-hide">
             <div class="flex gap-3" :style="{ minWidth: `${Math.max(row.children.length * 160, 100)}px` }">
               <button v-for="child in row.children" :key="child.id" @click="selectPerson(i, child)"
                 class="flex flex-col items-center gap-2 min-w-[140px] p-4 rounded-2xl border-2 transition-all hover:shadow-md active:scale-95 cursor-pointer shrink-0"
