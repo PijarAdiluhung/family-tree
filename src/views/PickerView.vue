@@ -6,7 +6,7 @@
         <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide" ref="breadcrumbRef">
           <template v-for="(p, i) in breadcrumb" :key="p.id">
             <button @click="navigateTo(i)" class="whitespace-nowrap text-sm px-3 py-1.5 rounded-full transition-colors"
-              :class="i === breadcrumb.length - 1 ? 'bg-blue-900 text-white font-medium' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'">
+              :class="i === breadcrumb.length - 1 ? 'bg-emerald-900 text-white font-medium' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'">
               {{ p.name }}
             </button>
             <span v-if="i < breadcrumb.length - 1" class="text-gray-300 text-sm self-center">&gt;</span>
