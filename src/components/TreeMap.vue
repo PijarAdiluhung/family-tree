@@ -7,6 +7,8 @@
       :node-types="nodeTypes"
       :nodes-draggable="false"
       :nodes-focusable="false"
+      :edges-focusable="false"
+      :default-edge-options="{ interactionWidth: 0 }"
       :pan-on-drag="true"
       :min-zoom="0.1"
       :max-zoom="2"

@@ -1,16 +1,17 @@
 <template>
-  <div
-    v-if="auth.loading"
-    class="h-svh w-screen overflow-hidden flex items-center justify-center bg-gray-50"
-  >
+  <Transition name="slide-fade" mode="out-in">
     <div
-      class="w-10 h-10 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"
-    ></div>
-  </div>
-  <div
-    v-else
-    class="h-svh w-screen flex flex-col overflow-hidden select-none"
-  >
+      v-if="auth.loading"
+      class="h-svh w-screen overflow-hidden flex items-center justify-center bg-gray-50"
+    >
+      <div
+        class="w-10 h-10 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"
+      ></div>
+    </div>
+    <div
+      v-else
+      class="h-svh w-screen flex flex-col overflow-hidden select-none"
+    >
     <header
       class="bg-emerald-700 text-white px-4 pt-[env(safe-area-inset-top)] h-14 flex items-center justify-between z-50 shadow shrink-0"
     >
@@ -128,6 +129,7 @@
 
     <ConfirmDialog />
   </div>
+  </Transition>
 </template>
 
 <script setup>

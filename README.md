@@ -13,7 +13,7 @@ npm run build      # → dist/
 npm run preview    # preview production build
 ```
 
-Requires a `.env` with `VITE_FIREBASE_*` vars (see `.env` for reference).
+Requires a `.env` with `VITE_FIREBASE_*` vars.
 
 ## Structure
 
@@ -32,7 +32,7 @@ Requires a `.env` with `VITE_FIREBASE_*` vars (see `.env` for reference).
 - **families**: `husbandId`, `wifeId`, `childIds[]`
 - **settings/app**: `adminUids[]`
 
-Public read; admin-only write (admin = UID in `settings/app.adminUids`).
+Public read; admin-only write.
 
 ## Deployment
 
