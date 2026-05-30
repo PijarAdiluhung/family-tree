@@ -29,15 +29,15 @@
             <div>
               <label class="label">Jenis Kelamin *</label>
               <div class="flex gap-3">
-                <label class="flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer"
+                <label class="relative flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer"
                   :class="entry.gender === 'male' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'">
-                  <input type="radio" v-model="entry.gender" value="male" class="sr-only" />
-                  <span class="text-sm">Laki-laki</span>
+                  <input type="radio" v-model="entry.gender" value="male" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer" :name="'gender-' + entry._key" />
+                  <span class="text-sm relative pointer-events-none">Laki-laki</span>
                 </label>
-                <label class="flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer"
+                <label class="relative flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer"
                   :class="entry.gender === 'female' ? 'border-pink-500 bg-pink-50' : 'border-gray-300'">
-                  <input type="radio" v-model="entry.gender" value="female" class="sr-only" />
-                  <span class="text-sm">Perempuan</span>
+                  <input type="radio" v-model="entry.gender" value="female" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer" :name="'gender-' + entry._key" />
+                  <span class="text-sm relative pointer-events-none">Perempuan</span>
                 </label>
               </div>
             </div>
