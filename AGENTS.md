@@ -48,5 +48,4 @@ Vue 3 + Vite, Pinia, Vue Router, Tailwind CSS, Firebase (Auth + Firestore + Host
 
 - `.firebaserc` is gitignored — local Firebase project config not tracked
 - Firestore uses persistent local cache with multi-tab support (`src/services/firebase.js:15-17`)
-- `dagre` in `package.json` is unused (no import in any source file)
 - No test framework or lint/typecheck setup exists
