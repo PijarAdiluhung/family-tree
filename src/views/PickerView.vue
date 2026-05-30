@@ -9,7 +9,7 @@
             <template v-else>Anak dari {{ row.parent.name }}</template>
           </div>
           <div class="px-4 pt-1 pb-3 overflow-x-auto scrollbar-hide">
-            <div class="flex gap-3" :style="{ minWidth: `${Math.max(row.children.length * 160, 100)}px` }">
+            <div class="flex gap-3 after:content-[''] after:w-2 after:shrink-0" :style="{ minWidth: `${Math.max(row.children.length * 160, 100)}px` }">
               <button v-for="child in row.children" :key="child.id" @click="selectPerson(i, child)"
                 class="flex flex-col items-center gap-2 min-w-[140px] p-4 rounded-2xl border-2 transition-all hover:shadow-md active:scale-95 cursor-pointer shrink-0"
                 :class="[child.gender === 'male' ? 'border-blue-200 bg-blue-50' : 'border-pink-200 bg-pink-50', child.id === selectedId(i) ? 'ring-2 ring-emerald-500' : '']">
