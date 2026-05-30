@@ -117,7 +117,7 @@
     </header>
 
     <main
-      class="flex-1 overflow-y-auto bg-gray-50 pb-[env(safe-area-inset-bottom)]"
+      class="flex-1 overflow-y-auto bg-gray-50"
     >
       <router-view v-slot="{ Component }">
         <Transition name="slide-fade" mode="out-in">
