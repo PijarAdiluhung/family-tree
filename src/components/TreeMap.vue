@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { computed, ref, nextTick, watch } from 'vue'
+import { computed, ref, nextTick, watch, markRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { VueFlow } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
@@ -48,7 +48,7 @@ const emit = defineEmits(['highlightCleared'])
 const router = useRouter()
 
 const vueFlowRef = ref(null)
-const nodeTypes = { person: PersonNode }
+const nodeTypes = { person: markRaw(PersonNode) }
 
 function onPaneReady() {
   nextTick(() => {
@@ -299,9 +299,10 @@ const flowNodes = computed(() => {
 const flowEdges = computed(() => {
   const edges = []
   const edgeSet = new Set()
+  const pm = peopleMap.value
 
   for (const f of props.families) {
-    if (f.husbandId && f.wifeId) {
+    if (f.husbandId && f.wifeId && pm[f.husbandId] && pm[f.wifeId]) {
       const key = `spouse-${f.husbandId}-${f.wifeId}`
       if (!edgeSet.has(key)) {
         edges.push({
@@ -322,7 +323,8 @@ const flowEdges = computed(() => {
     }
 
     for (const childId of f.childIds || []) {
-      if (f.husbandId) {
+      if (!pm[childId]) continue
+      if (f.husbandId && pm[f.husbandId]) {
         const key = `parent-${f.husbandId}-${childId}`
         if (!edgeSet.has(key)) {
           edges.push({
@@ -340,7 +342,7 @@ const flowEdges = computed(() => {
           edgeSet.add(key)
         }
       }
-      if (f.wifeId) {
+      if (f.wifeId && pm[f.wifeId]) {
         const key = `parent-${f.wifeId}-${childId}`
         if (!edgeSet.has(key)) {
           edges.push({

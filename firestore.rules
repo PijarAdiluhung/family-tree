@@ -3,42 +3,29 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isAdmin() {
-      return request.auth != null
-        && request.auth.uid in get(/databases/$(database)/documents/settings/app).data.adminUids;
-    }
-
-    // People collection — public read, admin-only write
+    // People — public read, auth-only write
     match /people/{personId} {
       allow read: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
+      allow create, update, delete: if request.auth != null;
     }
 
-    // Families collection — public read, admin-only write
+    // Families — public read, auth-only write
     match /families/{familyId} {
       allow read: if true;
-      allow create: if isAdmin();
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
+      allow create, update, delete: if request.auth != null;
     }
 
-    // Revisions — anyone can submit, admin-only update/delete
+    // Revisions — anyone can submit, auth-only update/delete
     match /revisions/{revisionId} {
       allow read: if true;
       allow create: if true;
-      allow update: if isAdmin();
-      allow delete: if isAdmin();
+      allow update, delete: if request.auth != null;
     }
 
-    // Settings — public read, admin-only write
+    // Settings — public read, auth-only write
     match /settings/{docId} {
       allow read: if true;
-      allow create: if isAdmin();
-      allow update: if request.auth != null
-        && request.auth.uid in resource.data.adminUids;
-      allow delete: if isAdmin();
+      allow create, update, delete: if request.auth != null;
     }
   }
 }
