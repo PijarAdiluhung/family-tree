@@ -20,6 +20,7 @@ import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
 import PersonForm from '@/components/PersonForm.vue'
 import FamilyManager from '@/components/FamilyManager.vue'
+import { toast } from 'vue3-toastify'
 
 const route = useRoute()
 const router = useRouter()
@@ -43,9 +44,10 @@ onMounted(load)
 async function handleSave(data) {
   try {
     await peopleStore.save(route.params.id, data)
+    toast.success('Data berhasil disimpan.')
     router.push('/admin')
   } catch (e) {
-    alert('Gagal menyimpan: ' + e.message)
+    toast.error('Gagal menyimpan: ' + e.message)
     console.error('Firestore save error:', e)
   }
 }

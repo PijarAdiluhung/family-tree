@@ -45,6 +45,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
+import { toast } from 'vue3-toastify'
 
 const props = defineProps({
   personId: { type: String, required: true },
@@ -109,7 +110,7 @@ async function addChild() {
   if (!selectedChildId.value) return
   const personFamilies = await familiesStore.getFamiliesForPerson(props.personId)
   if (personFamilies.length === 0) {
-    alert('Tambahkan pasangan terlebih dahulu sebelum menambah anak.')
+    toast.warning('Tambahkan pasangan terlebih dahulu sebelum menambah anak.')
     selectedChildId.value = ''
     return
   }

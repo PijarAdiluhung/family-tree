@@ -67,8 +67,6 @@
         <button @click="handleSave" :disabled="saving" class="btn-primary w-full">
           {{ saving ? 'Menyimpan...' : 'Simpan Revisi' }}
         </button>
-
-        <p v-if="saveMessage" class="text-sm text-center" :class="saveError ? 'text-red-500' : 'text-green-600'">{{ saveMessage }}</p>
       </div>
     </template>
 
@@ -84,6 +82,7 @@ import { useRouter } from 'vue-router'
 import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
 import { saveRevision } from '@/services/revisions'
+import { toast } from 'vue3-toastify'
 
 const router = useRouter()
 const peopleStore = usePeopleStore()
@@ -93,8 +92,6 @@ const loading = ref(true)
 const selectedId = ref('')
 const forms = ref([])
 const saving = ref(false)
-const saveMessage = ref('')
-const saveError = ref(false)
 
 let nextKey = 1
 
@@ -191,13 +188,11 @@ async function handleSave() {
   }))
 
   if (!people.some(p => p.name)) {
-    saveMessage.value = 'Setidaknya satu orang harus memiliki nama.'
-    saveError.value = true
+    toast.error('Setidaknya satu orang harus memiliki nama.')
     return
   }
 
   saving.value = true
-  saveMessage.value = ''
   try {
     const basedOn = peopleStore.all.find(p => p.id === selectedId.value)
     await saveRevision({
@@ -207,14 +202,12 @@ async function handleSave() {
       people,
     })
     await pingDiscord()
-    saveMessage.value = 'Revisi berhasil dikirim! Terima kasih atas masukannya.'
-    saveError.value = false
+    toast.success('Revisi berhasil dikirim! Terima kasih atas updatenya.')
     forms.value = []
     selectedId.value = ''
   } catch (e) {
     console.error('Failed to save revision:', e)
-    saveMessage.value = 'Gagal menyimpan revisi. Silakan coba lagi.'
-    saveError.value = true
+    toast.error('Gagal menyimpan revisi. Silakan coba lagi.')
   } finally {
     saving.value = false
   }

@@ -11,6 +11,7 @@ import { useRouter } from 'vue-router'
 import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
 import PersonForm from '@/components/PersonForm.vue'
+import { toast } from 'vue3-toastify'
 
 const router = useRouter()
 const peopleStore = usePeopleStore()
@@ -19,9 +20,10 @@ const familiesStore = useFamiliesStore()
 async function handleSave(data) {
   try {
     await peopleStore.save(null, data)
+    toast.success('Anggota baru berhasil ditambahkan.')
     router.push('/admin')
   } catch (e) {
-    alert('Gagal menyimpan: ' + e.message)
+    toast.error('Gagal menyimpan: ' + e.message)
     console.error('Firestore save error:', e)
   }
 }

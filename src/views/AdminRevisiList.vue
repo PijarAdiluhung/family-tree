@@ -61,6 +61,7 @@ import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
 import { fetchPendingRevisions, updateRevisionStatus } from '@/services/revisions'
 import { savePerson } from '@/services/people'
+import { toast } from 'vue3-toastify'
 
 const peopleStore = usePeopleStore()
 const familiesStore = useFamiliesStore()
@@ -98,9 +99,10 @@ async function applyRevision(r) {
     await updateRevisionStatus(r.id, 'applied')
     await Promise.all([peopleStore.loadAll(), familiesStore.loadAll()])
     await loadRevisions()
+    toast.success('Revisi berhasil diterapkan.')
   } catch (e) {
     console.error('Failed to apply revision:', e)
-    alert('Gagal menerapkan revisi.')
+    toast.error('Gagal menerapkan revisi.')
   } finally {
     applying.value = null
   }
@@ -112,6 +114,7 @@ async function rejectRevision(r) {
   try {
     await updateRevisionStatus(r.id, 'rejected')
     await loadRevisions()
+    toast.success('Revisi berhasil ditolak.')
   } catch (e) {
     console.error('Failed to reject revision:', e)
   } finally {
