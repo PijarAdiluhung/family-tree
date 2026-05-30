@@ -45,6 +45,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
+import { useConfirm } from '@/composables/useConfirm'
 import { toast } from 'vue3-toastify'
 
 const props = defineProps({
@@ -55,6 +56,7 @@ const emit = defineEmits(['updated'])
 
 const peopleStore = usePeopleStore()
 const familiesStore = useFamiliesStore()
+const { confirm } = useConfirm()
 
 const spouses = ref([])
 const children = ref([])
@@ -98,7 +100,7 @@ async function addSpouse() {
 }
 
 async function removeSpouse(spouse) {
-  if (!confirm(`Hapus pasangan ${spouse.name}?`)) return
+  if (!await confirm(`Hapus pasangan ${spouse.name}?`)) return
   if (spouse.familyId) {
     await familiesStore.remove(spouse.familyId)
   }
@@ -122,7 +124,7 @@ async function addChild() {
 }
 
 async function removeChild(child) {
-  if (!confirm(`Hapus ${child.name} dari daftar anak?`)) return
+  if (!await confirm(`Hapus ${child.name} dari daftar anak?`)) return
   if (child.familyId) {
     await familiesStore.removeChild(child.familyId, child.id)
   }

@@ -61,10 +61,12 @@ import { usePeopleStore } from '@/stores/people'
 import { useFamiliesStore } from '@/stores/families'
 import { fetchPendingRevisions, updateRevisionStatus } from '@/services/revisions'
 import { savePerson } from '@/services/people'
+import { useConfirm } from '@/composables/useConfirm'
 import { toast } from 'vue3-toastify'
 
 const peopleStore = usePeopleStore()
 const familiesStore = useFamiliesStore()
+const { confirm } = useConfirm()
 
 const loading = ref(true)
 const revisions = ref([])
@@ -82,7 +84,7 @@ async function loadRevisions() {
 }
 
 async function applyRevision(r) {
-  if (!confirm(`Terapkan revisi dari "${r.basedOnPersonName}" (${r.people.length} orang)?`)) return
+  if (!await confirm(`Terapkan revisi dari "${r.basedOnPersonName}" (${r.people.length} orang)?`)) return
   applying.value = r.id
   try {
     for (const p of r.people) {
@@ -109,7 +111,7 @@ async function applyRevision(r) {
 }
 
 async function rejectRevision(r) {
-  if (!confirm(`Tolak revisi dari "${r.basedOnPersonName}"?`)) return
+  if (!await confirm(`Tolak revisi dari "${r.basedOnPersonName}"?`)) return
   applying.value = r.id
   try {
     await updateRevisionStatus(r.id, 'rejected')

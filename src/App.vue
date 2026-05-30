@@ -39,7 +39,7 @@
       }}</router-link>
 
       <div class="relative flex items-center">
-        <template v-if="auth.isAdmin && route.path.startsWith('/admin')">
+        <template v-if="auth.isAdmin">
           <button
             @click="menuOpen = !menuOpen"
             class="p-1 rounded-full hover:bg-emerald-800"
@@ -63,12 +63,35 @@
             class="absolute top-full right-0 mt-1 bg-white text-gray-800 rounded shadow-lg z-50 min-w-40 overflow-hidden"
             @click="menuOpen = false"
           >
+            <router-link to="/admin" class="block px-4 py-2 hover:bg-gray-100 font-semibold"
+              >Admin</router-link
+            >
+            <hr class="border-gray-200" />
+            <router-link to="/" class="block px-4 py-2 hover:bg-gray-100"
+              >Welcome</router-link
+            >
             <router-link to="/picker" class="block px-4 py-2 hover:bg-gray-100"
-              >Picker</router-link
+              >Simple Mode</router-link
             >
             <router-link to="/map" class="block px-4 py-2 hover:bg-gray-100"
               >Pohon Keluarga</router-link
             >
+            <hr class="border-gray-200" />
+            <router-link to="/revisi" class="block px-4 py-2 hover:bg-gray-100"
+              >Revisi Data</router-link
+            >
+            <router-link
+              to="/admin/revisi"
+              class="block px-4 py-2 hover:bg-gray-100"
+              >Revisi Masuk</router-link
+            >
+            <hr class="border-gray-200" />
+            <button
+              @click.stop="handleLogout"
+              class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+            >
+              Logout
+            </button>
           </div>
         </template>
         <router-link
@@ -102,6 +125,8 @@
         </Transition>
       </router-view>
     </main>
+
+    <ConfirmDialog />
   </div>
 </template>
 
@@ -109,10 +134,13 @@
 import { useRouter, useRoute } from "vue-router";
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
+import { useConfirm } from "@/composables/useConfirm";
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
 
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
+const { confirm } = useConfirm();
 
 const menuOpen = ref(false);
 
@@ -146,6 +174,14 @@ function goBack() {
   } else {
     router.push("/");
   }
+}
+
+async function handleLogout() {
+  menuOpen.value = false
+  const ok = await confirm('Yakin ingin logout?')
+  if (!ok) return
+  await auth.signOut()
+  router.push('/')
 }
 </script>
 

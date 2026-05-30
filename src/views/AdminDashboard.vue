@@ -3,8 +3,6 @@
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold">Anggota Keluarga</h2>
       <div class="flex gap-2">
-        <router-link to="/admin/revisi" class="btn-ghost text-xs">Revisi Masuk</router-link>
-        <button @click="handleLogout" class="btn-ghost text-xs">Logout</button>
         <router-link to="/admin/people/new" class="btn-primary text-xs">+ Tambah</router-link>
       </div>
     </div>
@@ -44,22 +42,15 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePeopleStore } from '@/stores/people'
-import { useAuthStore } from '@/stores/auth'
+import { useConfirm } from '@/composables/useConfirm'
 import { doc, updateDoc, getDoc } from 'firebase/firestore'
 import { db } from '@/services/firebase'
 
-const router = useRouter()
 const peopleStore = usePeopleStore()
-const auth = useAuthStore()
+const { confirm } = useConfirm()
 const search = ref('')
 const loading = ref(true)
-
-async function handleLogout() {
-  await auth.signOut()
-  router.push('/')
-}
 
 const filtered = computed(() => {
   if (!search.value) return peopleStore.all
@@ -68,7 +59,7 @@ const filtered = computed(() => {
 })
 
 async function handleDelete(person) {
-  if (!confirm(`Hapus "${person.name}"?`)) return
+  if (!await confirm(`Hapus "${person.name}"?`)) return
   await peopleStore.remove(person.id)
 }
 
